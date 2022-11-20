@@ -40,7 +40,6 @@ echo "export HADOOP_MAPRED_HOME=$HADOOP_HOME"                   >> /home/$USER/.
 echo "export HADOOP_COMMON_HOME=$HADOOP_HOME"                   >> /home/$USER/.bashrc
 echo "export HADOOP_HDFS_HOME=$HADOOP_HOME"                     >> /home/$USER/.bashrc
 echo "export YARN_HOME=$HADOOP_HOME"                            >> /home/$USER/.bashrc
-echo "export PATH=$PATH:$HADOOP_HOME/bin"                       >> /home/$USER/.bashrc
 echo "export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin"        >> /home/$USER/.bashrc
 print_task_completion
 
