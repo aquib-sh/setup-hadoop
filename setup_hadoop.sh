@@ -23,15 +23,15 @@ if [! -f /home/$USER/.bashrc ]; then
 fi
 
 echo "[+] Setting up environment variables"
-echo 'export JAVA_HOME=openjdk-19.0.1_linux-x64_bin/jdk-19.0.1' >> /home/$USER/.bashrc
-echo 'export HADOOP_HOME=$PWD/hadoop-3.3.4'                     >> /home/$USER/.bashrc
-echo 'export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop'           >> /home/$USER/.bashrc
-echo 'export HADOOP_MAPRED_HOME=$HADOOP_HOME'                   >> /home/$USER/.bashrc
-echo 'export HADOOP_COMMON_HOME=$HADOOP_HOME'                   >> /home/$USER/.bashrc
-echo 'export HADOOP_HDFS_HOME=$HADOOP_HOME'                     >> /home/$USER/.bashrc
-echo 'export YARN_HOME=$HADOOP_HOME'                            >> /home/$USER/.bashrc
-echo 'export PATH=$PATH:$HADOOP_HOME/bin'                       >> /home/$USER/.bashrc
-echo 'export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin'        >> /home/$USER/.bashrc
+echo "export JAVA_HOME=$PWD/jdk-19.0.1"                         >> /home/$USER/.bashrc
+echo "export HADOOP_HOME=$PWD/hadoop-3.3.4"                     >> /home/$USER/.bashrc
+echo "export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop"           >> /home/$USER/.bashrc
+echo "export HADOOP_MAPRED_HOME=$HADOOP_HOME"                   >> /home/$USER/.bashrc
+echo "export HADOOP_COMMON_HOME=$HADOOP_HOME"                   >> /home/$USER/.bashrc
+echo "export HADOOP_HDFS_HOME=$HADOOP_HOME"                     >> /home/$USER/.bashrc
+echo "export YARN_HOME=$HADOOP_HOME"                            >> /home/$USER/.bashrc
+echo "export PATH=$PATH:$HADOOP_HOME/bin"                       >> /home/$USER/.bashrc
+echo "export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin"        >> /home/$USER/.bashrc
 print_task_completion
 
 source /home/$USER/.bashrc
