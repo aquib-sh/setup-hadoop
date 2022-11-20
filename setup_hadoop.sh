@@ -55,7 +55,7 @@ print_task_completion
 source /home/$USER/.bashrc
 
 echo "[+] Configuring Core Site"
-echo '<?xml version="1.0" encoding="UTF-8"?>'                      > $HADOOP_CONF_DIR/core-site.xml
+echo '<?xml version="1.0" encoding="UTF-8"?>'                       > $HADOOP_CONF_DIR/core-site.xml
 echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> $HADOOP_CONF_DIR/core-site.xml
 echo '<configuration>'                                             >> $HADOOP_CONF_DIR/core-site.xml
 echo '<property>'                                                  >> $HADOOP_CONF_DIR/core-site.xml
@@ -66,7 +66,7 @@ echo '</configuration>'                                            >> $HADOOP_CO
 print_task_completion
 
 echo "[+] Configuring HDFS"
-echo '<?xml version="1.0" encoding="UTF-8"?>'                      > $HADOOP_CONF_DIR/hdfs-site.xml
+echo '<?xml version="1.0" encoding="UTF-8"?>'                       > $HADOOP_CONF_DIR/hdfs-site.xml
 echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> $HADOOP_CONF_DIR/hdfs-site.xml
 echo '<configuration>'                                             >> $HADOOP_CONF_DIR/hdfs-site.xml
 echo '<property>'                                                  >> $HADOOP_CONF_DIR/hdfs-site.xml
@@ -81,7 +81,7 @@ echo '</configuration>'                                            >> $HADOOP_CO
 print_task_completion
 
 echo "[+] Configuring Map Reduce"
-echo '<?xml version="1.0" encoding="UTF-8"?>'                      > $HADOOP_CONF_DIR/mapred-site.xml
+echo '<?xml version="1.0" encoding="UTF-8"?>'                       > $HADOOP_CONF_DIR/mapred-site.xml
 echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> $HADOOP_CONF_DIR/mapred-site.xml
 echo '<configuration>'                                             >> $HADOOP_CONF_DIR/mapred-site.xml
 echo '<property>'                                                  >> $HADOOP_CONF_DIR/mapred-site.xml
@@ -92,7 +92,7 @@ echo '</configuration>'                                            >> $HADOOP_CO
 print_task_completion
 
 echo "[+] Configuring YARN"
-echo '<?xml version="1.0">'                                              > $HADOOP_CONF_DIR/yarn-site.xml
+echo '<?xml version="1.0"?>'                                              > $HADOOP_CONF_DIR/yarn-site.xml
 echo '<configuration>'                                                   >> $HADOOP_CONF_DIR/yarn-site.xml
 echo '<property>'                                                        >> $HADOOP_CONF_DIR/yarn-site.xml
 echo '<name>yarn.nodemanager.aux-services</name>'                        >> $HADOOP_CONF_DIR/yarn-site.xml
