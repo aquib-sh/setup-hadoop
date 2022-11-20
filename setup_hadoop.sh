@@ -6,29 +6,29 @@ function print_task_completion() {
 }
 
 echo "[+] Downloading Java"
-if !test -f "hadoop-3.3.4.tar.gz"; then
+if ! test -f "hadoop-3.3.4.tar.gz"; then
     wget https://download.java.net/java/GA/jdk19.0.1/afdd2e245b014143b62ccb916125e3ce/10/GPL/openjdk-19.0.1_linux-x64_bin.tar.gz
 fi
 print_task_completion
 
 echo "[+] Downloading Hadoop"
-if !test -f "openjdk-19.0.1_linux-x64_bin.tar.gz"; then
+if ! test -f "openjdk-19.0.1_linux-x64_bin.tar.gz"; then
     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
 fi
 print_task_completion
 
 echo "[+] Extracting files"
-if !test -d "hadoop-3.3.4"; then
+if ! test -d "hadoop-3.3.4"; then
     tar -xvzf hadoop-3.3.4.tar.gz
 fi
 
-if !test -d "jdk-19.0.1"; then
+if ! test -d "jdk-19.0.1"; then
     tar -xvzf openjdk-19.0.1_linux-x64_bin.tar.gz
 fi
 print_task_completion
 
 BASH_PROFILE=/home/$USER/.bashrc
-if !test -f $BASH_PROFILE; then
+if ! test -f $BASH_PROFILE; then
     touch $BASH_PROFILE
 fi
 
