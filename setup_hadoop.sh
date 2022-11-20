@@ -33,14 +33,23 @@ if ! test -f $BASH_PROFILE; then
 fi
 
 echo "[+] Setting up environment variables"
-echo "export JAVA_HOME=$PWD/jdk-19.0.1"                         >> /home/$USER/.bashrc
-echo "export HADOOP_HOME=$PWD/hadoop-3.3.4"                     >> /home/$USER/.bashrc
-echo "export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop"           >> /home/$USER/.bashrc
-echo "export HADOOP_MAPRED_HOME=$HADOOP_HOME"                   >> /home/$USER/.bashrc
-echo "export HADOOP_COMMON_HOME=$HADOOP_HOME"                   >> /home/$USER/.bashrc
-echo "export HADOOP_HDFS_HOME=$HADOOP_HOME"                     >> /home/$USER/.bashrc
-echo "export YARN_HOME=$HADOOP_HOME"                            >> /home/$USER/.bashrc
-echo "export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin"        >> /home/$USER/.bashrc
+export JAVA_HOME=$PWD/jdk-19.0.1
+export HADOOP_HOME=$PWD/hadoop-3.3.4
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export HADOOP_MAPRED_HOME=$HADOOP_HOME     
+export HADOOP_COMMON_HOME=$HADOOP_HOME         
+export HADOOP_HDFS_HOME=$HADOOP_HOME            
+export YARN_HOME=$HADOOP_HOME               
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin
+
+echo "export JAVA_HOME=$JAVA_HOME"                   >> /home/$USER/.bashrc
+echo "export HADOOP_HOME=$HADOOP_HOME"               >> /home/$USER/.bashrc
+echo "export HADOOP_CONF_DIR=$HADOOP_CONF_DIR"       >> /home/$USER/.bashrc
+echo "export HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME" >> /home/$USER/.bashrc
+echo "export HADOOP_COMMON_HOME=$HADOOP_COMMON_HOME" >> /home/$USER/.bashrc
+echo "export HADOOP_HDFS_HOME=$HADOOP_HDFS_HOME"     >> /home/$USER/.bashrc
+echo "export YARN_HOME=$YARN_HOME"                   >> /home/$USER/.bashrc
+echo "export PATH=$PATH"                             >> /home/$USER/.bashrc
 print_task_completion
 
 source /home/$USER/.bashrc
