@@ -5,15 +5,15 @@ function print_task_completion() {
     echo
 }
 
-echo "[+] Downloading Java"
+echo "[+] Downloading Hadoop"
 if ! test -f "hadoop-3.3.4.tar.gz"; then
-    wget https://download.java.net/java/GA/jdk19.0.1/afdd2e245b014143b62ccb916125e3ce/10/GPL/openjdk-19.0.1_linux-x64_bin.tar.gz
+    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
 fi
 print_task_completion
 
-echo "[+] Downloading Hadoop"
+echo "[+] Downloading JDK"
 if ! test -f "openjdk-19.0.1_linux-x64_bin.tar.gz"; then
-    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
+    wget https://download.java.net/java/GA/jdk19.0.1/afdd2e245b014143b62ccb916125e3ce/10/GPL/openjdk-19.0.1_linux-x64_bin.tar.gz
 fi
 print_task_completion
 
