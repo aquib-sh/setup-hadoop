@@ -1,108 +1,72 @@
 #!/bin/bash
 
-function print_task_completion() {
-    echo "+++++++++++++ DONE +++++++++++++"
-    echo
-}
+JAVA_HOME=$PWD/openlogic-openjdk-8u352-b08-linux-x64
+HADOOP_HOME=$PWD/hadoop-3.3.4
+HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+HADOOP_MAPRED_HOME=$HADOOP_HOME     
+HADOOP_COMMON_HOME=$HADOOP_HOME         
+HADOOP_HDFS_HOME=$HADOOP_HOME            
+YARN_HOME=$HADOOP_HOME               
+PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin
+
+TASK_COMPLETION_MSG="+++++++++++++ DONE +++++++++++++\n"
+BASH_PROFILE=/home/$USER/.bashrc
+HADOOP_TAR_FILE=$HADOOP_HOME.tar.gz
+JAVA_TAR_FILE=$JAVA_HOME.tar.gz
 
 echo "[+] Downloading Hadoop"
-if ! test -f "hadoop-3.3.4.tar.gz"; then
+if ! test -f $HADOOP_TAR_FILE; then
     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
 fi
-print_task_completion
+printf TASK_COMPLETION_MSG
 
 echo "[+] Downloading JDK"
-if ! test -f "openjdk-19.0.1_linux-x64_bin.tar.gz"; then
-    wget https://download.java.net/java/GA/jdk19.0.1/afdd2e245b014143b62ccb916125e3ce/10/GPL/openjdk-19.0.1_linux-x64_bin.tar.gz
+if ! test -f $JAVA_TAR_FILE; then
+    wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u352-b08/openlogic-openjdk-8u352-b08-linux-x64.tar.gz
 fi
-print_task_completion
+printf TASK_COMPLETION_MSG
 
 echo "[+] Extracting files"
-if ! test -d "hadoop-3.3.4"; then
-    tar -xvzf hadoop-3.3.4.tar.gz
+if ! test -d $HADOOP_HOME; then
+    tar -xvzf $HADOOP_TAR_FILE
 fi
 
-if ! test -d "jdk-19.0.1"; then
-    tar -xvzf openjdk-19.0.1_linux-x64_bin.tar.gz
+if ! test -d $JAVA_HOME; then
+    tar -xvzf $JAVA_TAR_FILE
 fi
-print_task_completion
+printf TASK_COMPLETION_MSG
 
-BASH_PROFILE=/home/$USER/.bashrc
 if ! test -f $BASH_PROFILE; then
     touch $BASH_PROFILE
 fi
 
 echo "[+] Setting up environment variables"
-export JAVA_HOME=$PWD/jdk-19.0.1
-export HADOOP_HOME=$PWD/hadoop-3.3.4
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-export HADOOP_MAPRED_HOME=$HADOOP_HOME     
-export HADOOP_COMMON_HOME=$HADOOP_HOME         
-export HADOOP_HDFS_HOME=$HADOOP_HOME            
-export YARN_HOME=$HADOOP_HOME               
-export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin
-
-echo "export JAVA_HOME=$JAVA_HOME"                   >> /home/$USER/.bashrc
-echo "export HADOOP_HOME=$HADOOP_HOME"               >> /home/$USER/.bashrc
-echo "export HADOOP_CONF_DIR=$HADOOP_CONF_DIR"       >> /home/$USER/.bashrc
-echo "export HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME" >> /home/$USER/.bashrc
-echo "export HADOOP_COMMON_HOME=$HADOOP_COMMON_HOME" >> /home/$USER/.bashrc
-echo "export HADOOP_HDFS_HOME=$HADOOP_HDFS_HOME"     >> /home/$USER/.bashrc
-echo "export YARN_HOME=$YARN_HOME"                   >> /home/$USER/.bashrc
-echo "export PATH=$PATH"                             >> /home/$USER/.bashrc
-print_task_completion
+echo "export JAVA_HOME=$JAVA_HOME"                   >> $BASH_PROFILE
+echo "export HADOOP_HOME=$HADOOP_HOME"               >> $BASH_PROFILE
+echo "export HADOOP_CONF_DIR=$HADOOP_CONF_DIR"       >> $BASH_PROFILE
+echo "export HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME" >> $BASH_PROFILE
+echo "export HADOOP_COMMON_HOME=$HADOOP_COMMON_HOME" >> $BASH_PROFILE
+echo "export HADOOP_HDFS_HOME=$HADOOP_HDFS_HOME"     >> $BASH_PROFILE
+echo "export YARN_HOME=$YARN_HOME"                   >> $BASH_PROFILE
+echo "export PATH=$PATH"                             >> $BASH_PROFILE
+printf TASK_COMPLETION_MSG
 
 source /home/$USER/.bashrc
 
 echo "[+] Configuring Core Site"
-echo '<?xml version="1.0" encoding="UTF-8"?>'                       > $HADOOP_CONF_DIR/core-site.xml
-echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> $HADOOP_CONF_DIR/core-site.xml
-echo '<configuration>'                                             >> $HADOOP_CONF_DIR/core-site.xml
-echo '<property>'                                                  >> $HADOOP_CONF_DIR/core-site.xml
-echo '<name>fs.default.name</name>'                                >> $HADOOP_CONF_DIR/core-site.xml
-echo '<value>hdfs://localhost:9000</value>'                        >> $HADOOP_CONF_DIR/core-site.xml
-echo '</property>'                                                 >> $HADOOP_CONF_DIR/core-site.xml
-echo '</configuration>'                                            >> $HADOOP_CONF_DIR/core-site.xml
-print_task_completion
+cat core-site.xml > $HADOOP_CONF_DIR/core-site.xml
+printf TASK_COMPLETION_MSG
 
 echo "[+] Configuring HDFS"
-echo '<?xml version="1.0" encoding="UTF-8"?>'                       > $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<configuration>'                                             >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<property>'                                                  >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<name>dfs.replication</name>'                                >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<value>1</value>'                                            >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '</property>'                                                 >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<property>'                                                  >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<name>dfs.permission</name>'                                 >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '<value>false</value>'                                        >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '</property>'                                                 >> $HADOOP_CONF_DIR/hdfs-site.xml
-echo '</configuration>'                                            >> $HADOOP_CONF_DIR/hdfs-site.xml
-print_task_completion
+cat hdfs-site.xml > $HADOOP_CONF_DIR/hdfs-site.xml
+printf TASK_COMPLETION_MSG
 
 echo "[+] Configuring Map Reduce"
-echo '<?xml version="1.0" encoding="UTF-8"?>'                       > $HADOOP_CONF_DIR/mapred-site.xml
-echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> $HADOOP_CONF_DIR/mapred-site.xml
-echo '<configuration>'                                             >> $HADOOP_CONF_DIR/mapred-site.xml
-echo '<property>'                                                  >> $HADOOP_CONF_DIR/mapred-site.xml
-echo '<name>mapreduce.framework.name</name>'                       >> $HADOOP_CONF_DIR/mapred-site.xml
-echo '<value>yarn</value>'                                         >> $HADOOP_CONF_DIR/mapred-site.xml
-echo '</property>'                                                 >> $HADOOP_CONF_DIR/mapred-site.xml
-echo '</configuration>'                                            >> $HADOOP_CONF_DIR/mapred-site.xml
-print_task_completion
+cat mapred-site.xml > $HADOOP_CONF_DIR/mapred-site.xml
+printf TASK_COMPLETION_MSG
 
 echo "[+] Configuring YARN"
-echo '<?xml version="1.0"?>'                                              > $HADOOP_CONF_DIR/yarn-site.xml
-echo '<configuration>'                                                   >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '<property>'                                                        >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '<name>yarn.nodemanager.aux-services</name>'                        >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '<value>mapreduce_shuffle</value>'                                  >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '</property>'                                                       >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '<property>'                                                        >> $HADOOP_CONF_DIR/yarn-site.xml                     
-echo '<name>yarn.nodemanager.auxservices.mapreduce.shuffle.class</name>' >> $HADOOP_CONF_DIR/yarn-site.xml 
-echo '<value>org.apache.hadoop.mapred.ShuffleHandler</value>'            >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '</property>'                                                       >> $HADOOP_CONF_DIR/yarn-site.xml
-echo '</configuration>'                                                  >> $HADOOP_CONF_DIR/yarn-site.xml
-print_task_completion
+cat yarn-site.xml > $HADOOP_CONF_DIR/yarn-site.xml
+printf TASK_COMPLETION_MSG
 
 hadoop namenode -format
