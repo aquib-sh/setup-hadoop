@@ -18,13 +18,13 @@ echo "[+] Downloading Hadoop"
 if ! test -f $HADOOP_TAR_FILE; then
     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
 fi
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 echo "[+] Downloading JDK"
 if ! test -f $JAVA_TAR_FILE; then
     wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u352-b08/openlogic-openjdk-8u352-b08-linux-x64.tar.gz
 fi
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 echo "[+] Extracting files"
 if ! test -d $HADOOP_HOME; then
@@ -34,7 +34,7 @@ fi
 if ! test -d $JAVA_HOME; then
     tar -xvzf $JAVA_TAR_FILE
 fi
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 if ! test -f $BASH_PROFILE; then
     touch $BASH_PROFILE
@@ -49,24 +49,24 @@ echo "export HADOOP_COMMON_HOME=$HADOOP_COMMON_HOME" >> $BASH_PROFILE
 echo "export HADOOP_HDFS_HOME=$HADOOP_HDFS_HOME"     >> $BASH_PROFILE
 echo "export YARN_HOME=$YARN_HOME"                   >> $BASH_PROFILE
 echo "export PATH=$PATH"                             >> $BASH_PROFILE
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 source /home/$USER/.bashrc
 
 echo "[+] Configuring Core Site"
 cat core-site.xml > $HADOOP_CONF_DIR/core-site.xml
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 echo "[+] Configuring HDFS"
 cat hdfs-site.xml > $HADOOP_CONF_DIR/hdfs-site.xml
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 echo "[+] Configuring Map Reduce"
 cat mapred-site.xml > $HADOOP_CONF_DIR/mapred-site.xml
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 echo "[+] Configuring YARN"
 cat yarn-site.xml > $HADOOP_CONF_DIR/yarn-site.xml
-printf TASK_COMPLETION_MSG
+printf $TASK_COMPLETION_MSG
 
 hadoop namenode -format
