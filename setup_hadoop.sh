@@ -1,5 +1,15 @@
 #!/bin/bash
 
+## Author: Shaikh Aquib
+##
+## Purpose: Used to download and setup Hadoop 3.3.4 and OpenJDK8 on Debian GNU/Linux
+##          and Debian/Ubuntu based systems.
+##
+## Usage: Execute this script with a non-root user having sudo priviledges
+##        For setting up basic environment and adding user to sudo execute
+##        setup_debian.sh provided along with this.
+##
+
 TASK_COMPLETION_MSG="+++++++++++++ DONE +++++++++++++\n"
 HADOOP_HOME=$PWD/hadoop-3.3.4
 BASH_PROFILE=/home/$USER/.bashrc
