@@ -1,28 +1,24 @@
 #!/bin/bash
 
-JAVA_HOME=$PWD/openlogic-openjdk-8u352-b08-linux-x64
-HADOOP_HOME=$PWD/hadoop-3.3.4
-HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-HADOOP_MAPRED_HOME=$HADOOP_HOME     
-HADOOP_COMMON_HOME=$HADOOP_HOME         
-HADOOP_HDFS_HOME=$HADOOP_HOME            
-YARN_HOME=$HADOOP_HOME               
-PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin
-
 TASK_COMPLETION_MSG="+++++++++++++ DONE +++++++++++++\n"
+HADOOP_HOME=$PWD/hadoop-3.3.4
 BASH_PROFILE=/home/$USER/.bashrc
 HADOOP_TAR_FILE=$HADOOP_HOME.tar.gz
-JAVA_TAR_FILE=$JAVA_HOME.tar.gz
+JAVA_PKG_FILE=$PWD/openlogic-openjdk-8u352-b08-linux-x64.deb
+HADOOP_CONF_DIR=$PWD/etc/hadoop/
 
 echo "[+] Downloading Hadoop"
 if ! test -f $HADOOP_TAR_FILE; then
     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
+
 fi
 printf $TASK_COMPLETION_MSG
 
-echo "[+] Downloading JDK"
-if ! test -f $JAVA_TAR_FILE; then
-    wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u352-b08/openlogic-openjdk-8u352-b08-linux-x64.tar.gz
+echo "[+] Downloading and Install JDK8"
+if ! test -f $JAVA_PKG_FILE; then
+    wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u352-b08/openlogic-openjdk-8u352-b08-linux-x64-deb.deb	
+    sudo dpkg -i $JAVA_PKG_FILE
+    sudo apt -f install
 fi
 printf $TASK_COMPLETION_MSG
 
@@ -30,28 +26,17 @@ echo "[+] Extracting files"
 if ! test -d $HADOOP_HOME; then
     tar -xvzf $HADOOP_TAR_FILE
 fi
-
-if ! test -d $JAVA_HOME; then
-    tar -xvzf $JAVA_TAR_FILE
-fi
 printf $TASK_COMPLETION_MSG
-
-if ! test -f $BASH_PROFILE; then
-    touch $BASH_PROFILE
-fi
 
 echo "[+] Setting up environment variables"
-echo "export JAVA_HOME=$JAVA_HOME"                   >> $BASH_PROFILE
-echo "export HADOOP_HOME=$HADOOP_HOME"               >> $BASH_PROFILE
-echo "export HADOOP_CONF_DIR=$HADOOP_CONF_DIR"       >> $BASH_PROFILE
-echo "export HADOOP_MAPRED_HOME=$HADOOP_MAPRED_HOME" >> $BASH_PROFILE
-echo "export HADOOP_COMMON_HOME=$HADOOP_COMMON_HOME" >> $BASH_PROFILE
-echo "export HADOOP_HDFS_HOME=$HADOOP_HDFS_HOME"     >> $BASH_PROFILE
-echo "export YARN_HOME=$YARN_HOME"                   >> $BASH_PROFILE
-echo "export PATH=$PATH"                             >> $BASH_PROFILE
+JAVA_HOME=dirname $(dirname $(readlink -f $(which java)))
+echo "export JAVA_HOME=$JAVA_HOME"  >> $HADOOP_CONF_DIR/hadoop-env.sh
 printf $TASK_COMPLETION_MSG
 
-source /home/$USER/.bashrc
+echo "[+] Setting SSH to run without passphrase"
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 0600 ~/.ssh/authorized_keys
 
 echo "[+] Configuring Core Site"
 cat core-site.xml > $HADOOP_CONF_DIR/core-site.xml
@@ -69,4 +54,5 @@ echo "[+] Configuring YARN"
 cat yarn-site.xml > $HADOOP_CONF_DIR/yarn-site.xml
 printf $TASK_COMPLETION_MSG
 
-hadoop namenode -format
+echo "[+] Format the namenode"
+bin/hdfs namenode -format
