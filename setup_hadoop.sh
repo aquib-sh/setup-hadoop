@@ -39,7 +39,7 @@ fi
 printf $TASK_COMPLETION_MSG
 
 echo "[+] Setting up environment variables"
-JAVA_HOME=dirname $(dirname $(readlink -f $(which java)))
+JAVA_HOME="$(dirname $(dirname $(readlink -f $(which java))))"
 echo "export JAVA_HOME=$JAVA_HOME"  >> $HADOOP_CONF_DIR/hadoop-env.sh
 printf $TASK_COMPLETION_MSG
 
