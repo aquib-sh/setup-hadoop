@@ -1,6 +1,10 @@
 # Setup Hadoop using BASH Script on Debian GNU/Linux
 This script was wrote for and tested on Debian GNU/Linux. Although it should work on Debian based distros like Ubuntu but it has only been tested on pure Debian.
 
+Two reference video (hindi) to this script can be found on YouTube: 
+- [Debian installation](https://youtu.be/cTuzavyo6ow)
+- [Hadoop setup](https://youtu.be/ZLYa4ODz89I)
+    
 ## Installing Git
 Switch to root 
 ```bash
