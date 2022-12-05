@@ -14,4 +14,5 @@ echo "Enter your non-root username:"
 read username
 
 echo "PATH=$PATH:/usr/bin:/usr/sbin" >> $HOME/.bashrc
+echo "PATH=$PATH:/usr/bin:/usr/sbin" >> /home/$username/.bashrc
 echo "$username ALL=(ALL:ALL) ALL" >> /etc/sudoers
