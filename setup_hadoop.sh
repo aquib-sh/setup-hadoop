@@ -20,16 +20,15 @@ HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 echo "[+] Downloading Hadoop"
 if ! test -f $HADOOP_TAR_FILE; then
     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz
-
 fi
 printf $TASK_COMPLETION_MSG
 
 echo "[+] Downloading and Install JDK8"
 if ! test -f $JAVA_PKG_FILE; then
     wget https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u352-b08/openlogic-openjdk-8u352-b08-linux-x64-deb.deb	
-    sudo dpkg -i $JAVA_PKG_FILE
-    sudo apt -f install
 fi
+sudo dpkg -i $JAVA_PKG_FILE
+sudo apt -f install
 printf $TASK_COMPLETION_MSG
 
 echo "[+] Extracting files"
