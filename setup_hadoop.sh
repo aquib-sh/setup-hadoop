@@ -14,7 +14,7 @@ TASK_COMPLETION_MSG="+++++++++++++ DONE +++++++++++++\n"
 HADOOP_HOME=$PWD/hadoop-3.3.4
 BASH_PROFILE=/home/$USER/.bashrc
 HADOOP_TAR_FILE=$HADOOP_HOME.tar.gz
-JAVA_PKG_FILE=$PWD/openlogic-openjdk-8u352-b08-linux-x64.deb
+JAVA_PKG_FILE=$PWD/openlogic-openjdk-8u352-b08-linux-x64-deb.deb
 HADOOP_CONF_DIR=$PWD/etc/hadoop
 
 echo "[+] Downloading Hadoop"
