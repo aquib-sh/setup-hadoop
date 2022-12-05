@@ -64,4 +64,4 @@ cat yarn-site.xml > $HADOOP_CONF_DIR/yarn-site.xml
 printf $TASK_COMPLETION_MSG
 
 echo "[+] Format the namenode"
-bin/hdfs namenode -format
+$HADOOP_HOME/bin/hdfs namenode -format
