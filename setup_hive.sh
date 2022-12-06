@@ -32,13 +32,13 @@ fi
 
 echo "[+] Setting up environment"
 echo "PATH=$PATH:$HADOOP_HOME:$HIVE_HOME/bin" >> $HOME/.bashrc
-sudo echo "DERBY_INSTALL=/opt/hadoop/db-derby-10.4.1.3-bin"  >  /etc/profile.d/derby.sh
-sudo echo "DERBY_HOME=/opt/hadoop/db-derby-10.4.1.3-bin"     >> /etc/profile.d/derby.sh
-sudo echo "export DERBY_INSTALL"                             >> /etc/profile.d/derby.sh
-sudo echo "export DERBY_HOME"                                >> /etc/profile.d/derby.sh
+echo "DERBY_INSTALL=/opt/hadoop/db-derby-10.4.1.3-bin" | sudo tee /etc/profile.d/derby.sh
+echo "DERBY_HOME=/opt/hadoop/db-derby-10.4.1.3-bin" | sudo tee -a /etc/profile.d/derby.sh
+echo "export DERBY_INSTALL"                         | sudo tee -a /etc/profile.d/derby.sh
+echo "export DERBY_HOME"                            | sudo tee -a /etc/profile.d/derby.sh
 
-sudo echo "HADOOP=/opt/hadoop/hadoop-0.17.2.1/bin/hadoop"   >> /etc/profile.d/hive.sh
-sudo echo "export HADOOP"                                   >> /etc/profile.d/hive.sh
+echo "HADOOP=/opt/hadoop/hadoop-0.17.2.1/bin/hadoop" | sudo tee /etc/profile.d/hive.sh
+echo "export HADOOP"                                 | sudo tee -a /etc/profile.d/hive.sh
 
 echo "[+] Setting up Hive directories"
 $HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
