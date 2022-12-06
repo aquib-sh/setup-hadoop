@@ -9,7 +9,7 @@ DERBY_HOME=$PWD/db-derby-10.14.2.0-bin
 
 TASK_COMPLETION_MSG="+++++++++++++ DONE +++++++++++++\n"
 
-echo "[+] Downloading Hadoop"
+echo "[+] Downloading Hive"
 if ! test -f $HIVE_TAR_FILE; then
     wget https://dlcdn.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz
 fi
@@ -42,4 +42,6 @@ $HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
 $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
 
 echo "[+] Creating Derby data dirctory"
-mkdir $DERBY_HOME/data
+if ! test -d $DERBY_HOME/data; then
+    mkdir $DERBY_HOME/data
+fi
