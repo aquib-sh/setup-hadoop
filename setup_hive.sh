@@ -41,7 +41,21 @@ $HADOOP_HOME/bin/hadoop fs -mkdir       /user/hive/warehouse
 $HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
 $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
 
-echo "[+] Creating Derby data dirctory"
+echo "[+] Creating Derby data directory"
 if ! test -d $DERBY_HOME/data; then
     mkdir $DERBY_HOME/data
 fi
+
+echo "[+] Configure Hive to use Derby"
+HIVE_SITE_CONFIG=$(cat $PWD/hive-site.xml)
+JPOS_PROPERTIES=$(cat $PWD/jpos.properties)
+IP_ADDRESS=$(ip addr | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+
+SUBSTITUTED_HIVE_CONFIG=${HIVE_SITE_CONFIG//hadoop1/$IP_ADDRESS}
+SUBSTITUTED_JPOS_PROPERTIES=${JPOS_PROPERTIES//hadoop1/$IP_ADDRESS}
+
+echo $SUBSTITUTED_HIVE_CONFIG > $HIVE_HOME/conf/hive-site.xml
+echo $SUBSTITUTED_JPOS_PROPERTIES > $HIVE_HOME/conf/jpox.properties
+
+echo "[+] Copy jar files from Derby to Hive"
+cp $DERBY_HOME/lib/* $HIVE_HOME/lib/
