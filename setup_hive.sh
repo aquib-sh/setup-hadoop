@@ -38,8 +38,8 @@ echo "DERBY_HOME=$DERBY_HOME"    | sudo tee -a /etc/profile.d/derby.sh
 echo "export DERBY_INSTALL"      | sudo tee -a /etc/profile.d/derby.sh
 echo "export DERBY_HOME"         | sudo tee -a /etc/profile.d/derby.sh
 
-echo "HADOOP=$HADOOP_HOME/bin/hadoop"   | sudo tee /etc/profile.d/hive.sh
-echo "export HADOOP"                    | sudo tee -a /etc/profile.d/hive.sh
+echo "HADOOP=$HADOOP_HOME/bin/hadoop" | sudo tee /etc/profile.d/hive.sh
+echo "export HADOOP"                  | sudo tee -a /etc/profile.d/hive.sh
 
 echo "[+] Setting up Hive directories"
 $HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
