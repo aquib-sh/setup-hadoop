@@ -31,15 +31,15 @@ if ! test -d $DERBY_HOME; then
 fi
 
 echo "[+] Setting up environment"
-echo "HADOOP_HOME=$HADOOP_HOME" >> $HOME/.bashrc
-echo "PATH=$PATH:$HADOOP_HOME:$HIVE_HOME/bin" >> $HOME/.bashrc
+echo "PATH=$PATH:$HADOOP_HOME:$HIVE_HOME/bin:$HADOOP_HOME/bin" | tee -a $HOME/.bashrc
+echo "HADOOP_HOME=$HADOOP_HOME"                                | tee -a $HOME/.bashrc
 echo "DERBY_INSTALL=$DERBY_HOME" | sudo tee /etc/profile.d/derby.sh
 echo "DERBY_HOME=$DERBY_HOME"    | sudo tee -a /etc/profile.d/derby.sh
 echo "export DERBY_INSTALL"      | sudo tee -a /etc/profile.d/derby.sh
 echo "export DERBY_HOME"         | sudo tee -a /etc/profile.d/derby.sh
-
 echo "HADOOP=$HADOOP_HOME/bin/hadoop" | sudo tee /etc/profile.d/hive.sh
 echo "export HADOOP"                  | sudo tee -a /etc/profile.d/hive.sh
+echo "export HADOOP_HOME:$HADOOP_HOME" | tee -a $HIVE_HOME/bin/hive-config.sh
 
 echo "[+] Setting up Hive directories"
 $HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
